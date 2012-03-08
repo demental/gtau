@@ -1,0 +1,37 @@
+#!/usr/bin/env php
+<?php
+$vars = $_SERVER['argv'];
+$executable = array_shift($vars);
+$host = array_shift($vars);
+$app = array_shift($vars);
+$command_options = array();
+foreach($vars as $var) {
+  if(strpos($var,'--')===0) {
+    list($varname,$varval) = explode('=',preg_replace('`^--`','',$var));
+    if(!$varval){$varval = true;}
+    $command_options[$varname] = $varval;
+  } else {
+    $initialCommand .= $var.' ';
+  }
+}
+if(!file_exists('config.'.$host.'.php')) {
+  Mfatal('Unknown domain '.$host."\n".'You should use a HOSTNAME where a config.HOSTNAME.php file exists'."\n".'Usage: ./M [HOSTNAME] [APPNAME]');
+}
+if(empty($app)) {
+  Mfatal('App name not defined !'."\n".'Usage: ./M [HOSTNAME] [APPNAME]');  
+}
+
+define('APP_NAME',$app);
+echo 'Booting application '.APP_NAME."\n";
+define('LOG_DRIVER','nolog');
+if(!@include './M_startup.php'){
+  Mfatal('You must be in a M project root');
+};
+Mreg::get('setup')->setUpEnv();
+
+
+function Mfatal($message) {
+  die("\n\n".'***[FATAL ERROR]***'."\n\n".$message."\n\n");
+}
+
+Command::start(trim($initialCommand),$command_options);
