@@ -1,0 +1,16 @@
+config.*.php
+private/*
+www/cache/*
+www/captcha/*
+www/internet-satellite/*
+www/media/*
+www/upload/
+cache/*
+gestion/cache/*
+gestion/front/cache/*
+gestion/office/cache/*
+mail_logs/*
+logs/*
+temp/*
+ _*.error.log
+.DS_Store

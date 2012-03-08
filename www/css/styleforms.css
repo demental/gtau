@@ -1,0 +1,102 @@
+.formline {
+  clear:left;
+  padding:0.3em 0;
+}
+.big .formline {
+  padding:1em 0;
+}
+.contact .formline {
+  padding:0.5em 0;
+  
+}
+input,select {
+  margin:0.2em;
+}
+label {
+  float:left;
+  display:block;
+  width:10em;
+  height:1.5em;
+}
+form br {
+  clear:left;
+}
+select.error, input.error, textarea.error {
+  background:#faa;
+}
+label.error span.error {
+  display:none;
+}
+label.error {
+  border-left:4px solid #f00;
+}
+label.long {
+  width:25em;
+}
+span.required {
+  color:#f00;
+}
+.formbloc, .recap {
+  border:1px solid #454545;
+  background:#383838;
+  padding:10px;
+  margin-bottom:10px;
+  font-size:120%;
+  margin-right:20px;
+}
+.sideform {
+  text-align:right;
+}
+.sideform label {
+  text-align:left;
+  width:8em;
+}
+.sideform label.long {
+    width:18em;
+}
+
+fieldset.big {
+  font-size:130%;
+  line-height:350%;
+  margin-bottom:2em;
+}
+.big input {
+  margin-left:1em;
+}
+.sideform .big label {
+  width:180px;
+}
+.submit label {
+  float:none;
+  display:inline;
+
+}
+.formgroup label {
+  display:inline;
+  float:none;
+  font-size:80%;
+}
+.submit  {
+  font-size:153.9%;
+  clear:both;
+  text-align:center;
+}
+p.formnote {
+  font-size:90%;
+  color:#555;
+  font-style:italic;
+  padding:0 2.5em;
+  margin:0 0 0.8em 0;
+}
+.checkbox label {
+  float:none;
+  display:inline;
+}
+/* ================== */
+/* = Anciens styles = */
+/* ================== */
+
+.formelements input, .formelements select {
+  margin:0;
+  padding:0;
+}
