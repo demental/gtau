@@ -97,12 +97,21 @@ class DataObjects_Factures extends DB_DataObject_Pluggable
         $this->getPdf()->write($dest);
       }
     }
+    public function prepareSearchForm($form)
+    {
+      $this->fb_fieldsToRender = array('client_id','paye');
+      $this->fb_preDefElements['paye'] = HTML_QuickForm::createElement('select','paye','Payé?',array(''=>'','o'=>'O','n'=>'N'));
+    }
     public function frontEndSearch($values)
     {
       if($values['date']['Y'] && $values['date']['M']) {
         $this->whereAdd('date_format(date,"%Y%m")='.$values['date']['Y'].$values['date']['M']);
       } elseif($values['date']['Y']) {
         $this->whereAdd('date_format(date,"%Y")='.$values['date']['Y']);        
+      }
+      switch($values['paye']) {
+        case 'O':$this->whereAdd('paye=1');break;
+        case 'N':$this->whereAdd('paye=0');break;        
       }
       if($values['client_id']) {
         $this->client_id = $values['client_id'];
