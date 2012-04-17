@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^([^/\.]+)\/([^\/\.]+)/*$ /index.php?module=$1&__record_ref=$2 [QSA,L]
