@@ -4,7 +4,7 @@
  */
 require_once 'M/DB/DataObject/Pluggable.php';
 
-class DataObjects_Clients extends DB_DataObject_Pluggable 
+class DataObjects_Clients extends DB_DataObject_Pluggable
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -46,14 +46,14 @@ class DataObjects_Clients extends DB_DataObject_Pluggable
          return array('id', true, false);
     }
 
-    function defaults() // column default values 
+    function defaults() // column default values
     {
          return array(
              '' => null,
          );
     }
 
-        
+
     function links() {
         // links generated from .links.ini file
         return array(
@@ -74,8 +74,30 @@ class DataObjects_Clients extends DB_DataObject_Pluggable
     {
       return '<strong>'.$this->intitule.'</strong><br />'.$this->adresse.'<br />'.$this->codepostal.' '.$this->ville;
     }
+    public function getBatchMethods()
+    {
+      return array('BatchCreateFacture' => array('title' => 'Créer des factures'));
+    }
+    public function prepareBatchCreateFactures($form)
+    {
+      $f = DB_DataObject::factory('facture');
+      $fb = MyFB::create($f);
+      $fb->useForm($form);
+      $fb->createSubmit = $fb->addFormHeader = false;
+      $fb->getForm();
+    }
+    public function batchCreateFactures($values)
+    {
+      while($this->fetch()) {
+        $f = DB_DataObject::factory('facture');
+        $f->setFrom($values);
+        $f->client_id = $this->id;
+        $f->insert();
+        $this->say('Facture <a href="'.M_Office::URL(array('module'=>'facture','record'=>$f->id)).'">F</a>'.$f->id.' créée pour '.$this->__toString());
+      }
+    }
     public function __toString()
     {
-      return $this->intitule; 
+      return $this->intitule;
     }
 }

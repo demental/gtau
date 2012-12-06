@@ -4,7 +4,7 @@
  */
 require_once 'M/DB/DataObject/Pluggable.php';
 
-class DataObjects_Factures extends DB_DataObject_Pluggable 
+class DataObjects_Factures extends DB_DataObject_Pluggable
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -44,14 +44,14 @@ class DataObjects_Factures extends DB_DataObject_Pluggable
          return array('id', true, false);
     }
 
-    function defaults() // column default values 
+    function defaults() // column default values
     {
          return array(
              '' => null,
          );
     }
 
-        
+
     function links() {
         // links generated from .links.ini file
         return array(
@@ -69,7 +69,7 @@ class DataObjects_Factures extends DB_DataObject_Pluggable
     ###END_AUTOCODE
     public $fb_linkOrderFields = array('date DESC');
     public $fb_enumFields = array('ratio_tva');
-    public $fb_enumOptions = array('ratio_tva'=>array('0.196'=>'19.6%','0'=>'0%'));
+    public $fb_enumOptions = array('ratio_tva'=>array('0'=>'0%', '0.196'=>'19.6%'));
     public function getSingleMethods()
     {
       return array('outpdf'=>array('title'=>'Obtenir le PDF'));
@@ -86,7 +86,7 @@ class DataObjects_Factures extends DB_DataObject_Pluggable
         copy(APP_ROOT.WEB_FOLDER.'/upload/'.$this->filename,APP_ROOT.'export/'.date('ymd',strtotime($this->date)).'DEP'.Strings::stripify($this->titre).'.'.FileUtils::getFileExtension($this->filename));
       }
     }
-    
+
     public function export()
     {
       while($this->fetch()) {
@@ -107,11 +107,11 @@ class DataObjects_Factures extends DB_DataObject_Pluggable
       if($values['date']['Y'] && $values['date']['M']) {
         $this->whereAdd('date_format(date,"%Y%m")='.$values['date']['Y'].$values['date']['M']);
       } elseif($values['date']['Y']) {
-        $this->whereAdd('date_format(date,"%Y")='.$values['date']['Y']);        
+        $this->whereAdd('date_format(date,"%Y")='.$values['date']['Y']);
       }
       switch($values['paye']) {
         case 'o':$this->whereAdd('paye=1');break;
-        case 'n':$this->whereAdd('paye=0');break;        
+        case 'n':$this->whereAdd('paye=0');break;
       }
       if($values['client_id']) {
         $this->client_id = $values['client_id'];
